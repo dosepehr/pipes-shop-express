@@ -75,6 +75,7 @@ exports.verifyOtp = expressAsyncHandler(async (req, res, next) => {
         });
         const token = signAccessToken({ id: user._id });
         await client.del(`${phone}-otp`);
+        await client.del(`${phone}-otp-attempts`);
         return res.status(200).json({ message: 'welcome', token });
     }
 });
@@ -273,8 +274,3 @@ exports.resetPassword = expressAsyncHandler(async (req, res, next) => {
             token,
         });
 });
-
-// !!!
-// issues
-
-// Add refresh token mechanism
