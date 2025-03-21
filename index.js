@@ -36,6 +36,7 @@ require('dotenv').config();
 const { mongoDBInit, redisInit } = require('./utils/funcs/db');
 const userRouter = require('./modules/User/userRouter');
 const authRouter = require('./modules/Auth/authRouter');
+const categoryRouter = require('./modules/Category/categoryRouter');
 mongoDBInit();
 redisInit();
 //* express app
@@ -81,6 +82,7 @@ app.route('/').all((_, res) => {
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/categories', categoryRouter);
 
 //* 404 route
 app.all('*', async (req, res, next) => {

@@ -45,10 +45,10 @@ exports.updateOne = (Model, validation) => {
     });
 };
 
-exports.getAll = (Model, condition = {}, populateOptions = []) => {
+exports.getAll = (Model, populateOptions = []) => {
     return expressAsyncHandler(async (req, res, next) => {
         // Build the base query using the APIFeatures class
-        let features = new APIFeatures(Model.find(condition), req.query)
+        let features = new APIFeatures(Model.find({}), req.query)
             .filter()
             .sort()
             .limit()
@@ -73,13 +73,12 @@ exports.getAll = (Model, condition = {}, populateOptions = []) => {
     });
 };
 
-exports.getOne = (Model, condition = {}, populateOptions = []) => {
+exports.getOne = (Model, populateOptions = []) => {
     return expressAsyncHandler(async (req, res, next) => {
         const { id } = req.params;
-        const filter = id ? { _id: id } : condition;
 
         // Build the query
-        let query = Model.findOne(filter);
+        let query = Model.findOne({ _id: id });
 
         // Apply population if provided
         if (populateOptions.length) {
