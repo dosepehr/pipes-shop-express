@@ -13,6 +13,10 @@ exports.getSubCategory = getOne(SubCategory, [
         path: 'category',
         select: 'name',
     },
+    {
+        path: 'products',
+        select: 'name',
+    },
 ]);
 exports.getSubCategories = getAll(SubCategory);
 exports.updateSubCategory = updateOne(SubCategory);
