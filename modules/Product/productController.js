@@ -7,6 +7,9 @@ const {
     deleteOne,
 } = require('../../modules/Factory/factoryController');
 const SubCategory = require('../SubCategory/subCategoryModel');
+const AppError = require('../../utils/Classes/AppError');
+const expressAsyncHandler = require('express-async-handler');
+
 exports.addProduct = addOne(Product);
 exports.getProducts = getAll(Product);
 exports.getProduct = getOne(Product, [
@@ -39,4 +42,5 @@ exports.checkSubCategoryExists = expressAsyncHandler(async (req, res, next) => {
             )
         );
     }
+    next();
 });
