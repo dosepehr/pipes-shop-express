@@ -40,6 +40,7 @@ const categoryRouter = require('./modules/Category/categoryRouter');
 const subCategoryRouter = require('./modules/SubCategory/subCategoryRouter');
 const productRouter = require('./modules/Product/productRouter');
 const itemRouter = require('./modules/Item/itemRouter');
+const variantRouter = require('./modules/Variant/variantRouter');
 mongoDBInit();
 redisInit();
 //* express app
@@ -89,6 +90,7 @@ app.use('/api/v1/categories', categoryRouter);
 app.use('/api/v1/sub-categories', subCategoryRouter);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/items', itemRouter);
+app.use('/api/v1/variants', variantRouter);
 //* 404 route
 app.all('*', async (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
