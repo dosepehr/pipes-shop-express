@@ -10,6 +10,7 @@ const SubCategory = require('../SubCategory/subCategoryModel');
 const AppError = require('../../utils/Classes/AppError');
 const expressAsyncHandler = require('express-async-handler');
 const Item = require('../Item/itemModel');
+const Variant = require('../Variant/variantModel');
 
 exports.addProduct = addOne(Product);
 exports.getProducts = getAll(Product);
@@ -29,11 +30,20 @@ exports.getProduct = expressAsyncHandler(async (req, res, next) => {
         return next(new AppError('Product not found', 404));
     }
 
-    // Get items and group them by brand
+    // Get items with their variants, grouped by brand
     const items = await Item.aggregate([
         {
             $match: {
                 product: product._id,
+            },
+        },
+        {
+            // Lookup variants for each item
+            $lookup: {
+                from: 'variants',
+                localField: '_id',
+                foreignField: 'item',
+                as: 'variants',
             },
         },
         {
@@ -44,6 +54,18 @@ exports.getProduct = expressAsyncHandler(async (req, res, next) => {
                     $push: {
                         _id: '$_id',
                         name: '$name',
+                        variants: {
+                            $map: {
+                                input: '$variants',
+                                as: 'variant',
+                                in: {
+                                    _id: '$$variant._id',
+                                    size: '$$variant.size',
+                                    price: '$$variant.price',
+                                    stock: '$$variant.stock',
+                                },
+                            },
+                        },
                     },
                 },
             },
