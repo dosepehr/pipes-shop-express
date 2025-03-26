@@ -85,7 +85,7 @@ app.route('/').all((_, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/categories', categoryRouter);
-app.use('/api/v1/subCategories', subCategoryRouter);
+app.use('/api/v1/sub-categories', subCategoryRouter);
 app.use('/api/v1/products', productRouter);
 //* 404 route
 app.all('*', async (req, res, next) => {

@@ -4,6 +4,7 @@ const {
     getSubCategory,
     getSubCategories,
     updateSubCategory,
+    checkCategoryExists,
     deleteSubCategory,
 } = require('./subCategoryController');
 const SubCategory = require('./subCategoryModel');
@@ -24,6 +25,7 @@ subCategoryRouter
         protect,
         restrictTo('admin'),
         fileUploader(['image'], 1024 * 1024 * 5),
+        checkCategoryExists,
         resizeImage,
         addSubCategory
     )
@@ -38,6 +40,7 @@ subCategoryRouter
         attachModel,
         deleteImage,
         fileUploader(['image'], 1024 * 1024 * 5),
+        checkCategoryExists,
         resizeImage,
         updateSubCategory
     )

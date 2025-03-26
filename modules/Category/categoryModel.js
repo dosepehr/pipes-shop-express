@@ -22,6 +22,7 @@ const categorySchema = new mongoose.Schema(
 );
 
 
+
 categorySchema.virtual('subcategories', {
     ref: 'SubCategory',
     foreignField: 'category',
