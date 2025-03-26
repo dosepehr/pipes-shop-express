@@ -5,6 +5,7 @@ const {
     getProducts,
     updateProduct,
     deleteProduct,
+    checkSubCategoryExists,
 } = require('./productController');
 const { protect, restrictTo } = require('../../utils/middlewares/auth');
 const fileUploader = require('../../utils/middlewares/fileUploader');
@@ -25,6 +26,7 @@ productRouter
         protect,
         restrictTo('admin'),
         fileUploader(['image'], 1024 * 1024 * 5),
+        checkSubCategoryExists,
         resizeImage,
         addProduct
     )
@@ -39,6 +41,7 @@ productRouter
         attachModel,
         deleteImage,
         fileUploader(['image'], 1024 * 1024 * 5),
+        checkSubCategoryExists,
         resizeImage,
         updateProduct
     )
