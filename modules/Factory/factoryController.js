@@ -73,6 +73,7 @@ exports.getAll = (Model, populateOptions = []) => {
     });
 };
 
+
 exports.getOne = (Model, populateOptions = []) => {
     return expressAsyncHandler(async (req, res, next) => {
         const { id } = req.params;
